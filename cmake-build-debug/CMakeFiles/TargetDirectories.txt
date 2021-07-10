@@ -1,0 +1,3 @@
+C:/Users/SWQXDBA/CLionProjects/StudentClassChosser/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+C:/Users/SWQXDBA/CLionProjects/StudentClassChosser/cmake-build-debug/CMakeFiles/StudentClassChosser.dir
+C:/Users/SWQXDBA/CLionProjects/StudentClassChosser/cmake-build-debug/CMakeFiles/edit_cache.dir
