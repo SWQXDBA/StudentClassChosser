@@ -7,7 +7,7 @@
 using namespace std;
 class Student{
 public:
-    bool isValuable{};
+
     string studentId;//学号
     string name;
     string sex;
@@ -38,7 +38,6 @@ public:
 
     static Student create(){
         Student student;
-        student.isValuable= true;
         cout<<"请输入学号"<<endl;
         cin>>student.studentId;
         cout<<"请输入姓名"<<endl;
@@ -101,7 +100,6 @@ class Course{
 public:
     Course() = default;
 
-    bool isValuable{};
     string id;//课程代码
     string name;//课程名称
     string type;//课程性质
@@ -127,7 +125,7 @@ public:
 
     static Course create(){
         Course course;
-        course.isValuable= true;
+
         cout<<"请输入课程代码"<<endl;
         cin>>course.id;
         cout<<"请输入课程名称"<<endl;
@@ -236,7 +234,7 @@ public:
         Course course;
 
         while(f1>>course){
-            course.isValuable= true;
+
             courses.push_back(course);
         }
         ifstream f2("students.txt");
@@ -247,7 +245,7 @@ public:
         Student student;
 
         while(f2>>student){
-            student.isValuable= true;
+
             students.push_back(student);
         }
 
@@ -408,13 +406,13 @@ public:
         return false;
     }
     void showStudents(vector<Student> s){
-        cout<<"学生信息：："<<endl;
+        cout<<"学号       姓名      性别      年龄      系别      班级      电话号码"<<endl;
         for(auto i = s.begin();i<s.end();i++){
             cout<<*i<<endl;
             }
         }
     void showCourses(vector<Course> s){
-        cout<<"课程信息：："<<endl;
+        cout<<"课程代码     课程名称        课程性质        学时      学分      开学学期        选课人数"<<endl;
         for(auto i = s.begin();i<s.end();i++){
             cout<<*i<<endl;
         }
