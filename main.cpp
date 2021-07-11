@@ -9,9 +9,9 @@ class Student{
 public:
 
     string studentId;//学号
-    string name;
-    string sex;
-    int age{};
+    string name;//名称
+    string sex;//性别
+    int age{};//年龄
     string type;//系别
     string className;//班级
     string phoneNumber;//电话号码
@@ -22,11 +22,8 @@ public:
 //        courses.insert(courses.begin(),Student.courses.begin(),Student.courses.end());
 //    }
 
-    bool hasCourse(const string& courseId){
-        cout<<"正在查找课程"<<courseId<<"  "<<courses.size()<<endl;
-
+    bool hasCourse(const string& courseId){//判断这个学生是否选择了这个课程
         for(auto i = courses.begin();i<courses.end();i++){
-            cout<<"课程有"+*i<<endl;
             if(courseId==*i){
                 return true;
             }
@@ -56,10 +53,10 @@ public:
         return student;
     }
 
-    void addCourses(const string& id){
+    void addCourses(const string& id){//增加选课
         courses.push_back(id);
     }
-    bool deleteCourses(const string& id){
+    bool deleteCourses(const string& id){//取消选课
         for(auto i = courses.begin();i<courses.end();i++){
             if(id==*i){}
             courses.erase(i);
@@ -107,7 +104,7 @@ public:
     int mark{};//学分
     string startTime;//开课学期
     int chosenStudentNumber{};//选课人数
-    vector<string> chosenStudents;
+    vector<string> chosenStudents;//选择了这个课程的学生学号
 
 //    Course(const Course &Course) {
 //        *this = Course;
@@ -123,7 +120,7 @@ public:
         return false;
     }
 
-    static Course create(){
+    static Course create(){//根据用户输入，创建一个课程信息
         Course course;
 
         cout<<"请输入课程代码"<<endl;
@@ -142,12 +139,12 @@ public:
 
 
     }
-    void addStudent(const string& target){
+    void addStudent(const string& target){//增加一个选课的学生
         chosenStudents.push_back(target);
         chosenStudentNumber++;
     }
 
-    bool deleteStudent(const string& target){
+    bool deleteStudent(const string& target){//退选课程
         for(auto i = chosenStudents.begin();i<chosenStudents.end();i++){
             if(target==*i){
                 chosenStudents.erase(i);
@@ -201,7 +198,7 @@ public:
     vector<Course> courses;
     vector<Student> students;
 
-    void save(){
+    void save(){//从文件中保存
         ofstream of("courses.txt");
         for(auto i = courses.begin();i<courses.end();i++){
             of<<*i<<endl;
@@ -225,7 +222,7 @@ public:
         of2.close();
         of3.close();
     }
-    void load(){
+    void load(){//从文件中加载
         ifstream f1("courses.txt");
         if(!f1.is_open()){
             cout<<"文件加载失败"<<endl;
@@ -280,7 +277,7 @@ public:
         f3.close();
     }
 
-    vector<Course> selectCourseByStudentId(const string& studentId){
+    vector<Course> selectCourseByStudentId(const string& studentId){//通过选课的学生查找课程
         vector<Course>ret ;
         for(auto i = courses.begin();i<courses.end();i++){
             if(i->hasChosenStudents(studentId)){
@@ -290,7 +287,7 @@ public:
         return ret;
     }
 
-    vector<Student> selectStudentsByCourseId(const string& courseId){
+    vector<Student> selectStudentsByCourseId(const string& courseId){//通过课程查找选课的学生
         vector<Student>ret ;
         for(auto i = students.begin();i<students.end();i++){
             if(i->hasCourse(courseId)){
@@ -299,7 +296,7 @@ public:
         }
         return ret;
     }
-    Course* selectCourseById(const string& id){
+    Course* selectCourseById(const string& id){//通过课程编号查找课程
 
         for(auto i = courses.begin();i<courses.end();i++){
             if(i->id==id){
@@ -309,7 +306,7 @@ public:
         return nullptr;
     }
 
-    Course* selectCourseByName(const string& name){
+    Course* selectCourseByName(const string& name){//通过课程名称查找课程
         Course ret;
         for(auto i = courses.begin();i<courses.end();i++){
             if(i->name==name){
@@ -318,7 +315,7 @@ public:
         }
         return nullptr;
     }
-    Student* selectStudentByStudentId(const string& studentId){
+    Student* selectStudentByStudentId(const string& studentId){//通过学生学号查找学生
         Student ret;
         for(auto i = students.begin();i<students.end();i++){
             if(i->studentId==studentId){
@@ -328,7 +325,7 @@ public:
         return nullptr;
     }
 
-    Student* selectStudentByName(const string& name){
+    Student* selectStudentByName(const string& name){//通过学生姓名查找学生
         Student ret;
         for(auto i = students.begin();i<students.end();i++){
             if(i->name==name){
@@ -338,7 +335,7 @@ public:
         return nullptr;
     }
 
-    bool addCourse(const Course& course){
+    bool addCourse(const Course& course){//增加一门课程
         for(auto i = courses.begin();i<courses.end();i++){
             if(i->id==course.id){
                 cout<<"添加失败，课程代码重复!"<<endl;
@@ -350,7 +347,7 @@ public:
         cout<<"课程新增成功！"<<endl;
         return true;
     }
-    bool addStudent(const Student& student){
+    bool addStudent(const Student& student){//增加一个学生
         for(auto i = students.begin();i<students.end();i++){
             if(i->studentId==student.studentId){
                 cout<<"增加失败！学号重复了！"<<endl;
@@ -361,7 +358,7 @@ public:
         cout<<"学生新增成功！"<<endl;
         return true;
     }
-    bool deleteStudent(const Student& student){
+    bool deleteStudent(const Student& student){//删除学生
         for(auto i = students.begin();i<students.end();i++){
             if(*i==student){
                 students.erase(i);
@@ -372,7 +369,7 @@ public:
         cout<<"删除失败！"<<endl;
         return false;
     }
-    bool deleteStudent(const Student* student){
+    bool deleteStudent(const Student* student){//删除学生
         for(auto i = students.begin();i<students.end();i++){
             if(&(*i)==student){
                 students.erase(i);
@@ -383,7 +380,7 @@ public:
         cout<<"删除失败！"<<endl;
         return false;
     }
-    bool deleteCourse(const Course& course){
+    bool deleteCourse(const Course& course){//删除课程
         for(auto i = courses.begin();i<courses.end();i++){
             if(*i==course){
                 courses.erase(i);
@@ -394,7 +391,7 @@ public:
         cout<<"删除失败！"<<endl;
         return false;
     }
-    bool deleteCourse(const Course* course){
+    bool deleteCourse(const Course* course){//删除课程
         for(auto i = courses.begin();i<courses.end();i++){
             if(&(*i)==course){
                 courses.erase(i);
@@ -405,19 +402,48 @@ public:
         cout<<"删除失败！"<<endl;
         return false;
     }
-    void showStudents(vector<Student> s){
+    void showStudents(vector<Student> s){//显示学生信息
+        if(s.empty()){
+            cout<<"信息为空！"<<endl;
+            return;
+        }
         cout<<"学号       姓名      性别      年龄      系别      班级      电话号码"<<endl;
         for(auto i = s.begin();i<s.end();i++){
             cout<<*i<<endl;
             }
         }
-    void showCourses(vector<Course> s){
+    void showCourses(vector<Course> s){//显示课程信息
+        if(s.empty()){
+            cout<<"信息为空！"<<endl;
+            return;
+        }
         cout<<"课程代码     课程名称        课程性质        学时      学分      开学学期        选课人数"<<endl;
         for(auto i = s.begin();i<s.end();i++){
             cout<<*i<<endl;
         }
     }
-    void chooseCourse(){
+    void unChooseCourse(){
+        string str;
+        cout<<"输入学生id"<<endl;
+        cin>>str;
+        Student *student = selectStudentByStudentId(str);
+        if(student== nullptr){
+            cout<<"没有这个学生!"<<endl;
+            return;
+        }
+        cout<<"输入课程id"<<endl;
+        cin>>str;
+        Course *course = selectCourseById(str);
+        if(course== nullptr){
+            cout<<"没有这个课程!"<<endl;
+            return;
+        }
+        student->deleteCourses(course->id);
+        course->deleteStudent(student->studentId);
+        cout<<"退选成功!"<<endl;
+    }
+
+    void chooseCourse(){//选课
         string str;
         cout<<"输入学生id"<<endl;
         cin>>str;
@@ -437,7 +463,7 @@ public:
         course->addStudent(student->studentId);
         cout<<"选课成功!"<<endl;
     }
-    void modifyCourse(string id){
+    void modifyCourse(string id){//修改课程信息
         Course *course = selectCourseById(id);
         if(course== nullptr){
             cout<<"未找到目标"<<endl;
@@ -456,7 +482,7 @@ public:
         cout<<"修改成功!"<<endl;
     }
 
-    void modifyStudent(string id){
+    void modifyStudent(string id){//修改学生信息
         Student *student = selectStudentByStudentId(id);
         if(student== nullptr){
             cout<<"未找到目标"<<endl;
@@ -477,26 +503,25 @@ public:
         cout<<"修改成功!"<<endl;
     }
 };
-void menu(){
+void menu(){//打印菜单
     cout<<"1添加学生 2添加课程 3显示所有学生 4显示所有课程 5选课 6查看课程的所有学生 7查看学生的所有课程\n"
           " 8删除学生信息 9删除课程信息 10修改学生信息 11修改课程信息 \n"
-          "12查找学生(通过学号) 13查找学生(通过姓名) 14查找课程(通过编号) 15查找课程(通过课程名称)"
-
-          ;
+          "12查找学生(通过学号) 13查找学生(通过姓名) 14查找课程(通过编号) 15查找课程(通过课程名称) 16退选课程"
+          "0退出系统"<<endl;
 }
-string getId(){
+string getId(){//录入选项信息
     cout<<"请输入要查看的id"<<endl;
     string id;
     cin>>id;
     return id;
 }
-string getName(){
+string getName(){//录入选项信息
     cout<<"请输入要查看的名称"<<endl;
     string id;
     cin>>id;
     return id;
 }
-void seeStudentById(System system){
+void queryStudentById(System system){//查找学生
     Student *student =  system.selectStudentByStudentId(getId());
     if(student==nullptr){
         cout<<"未找到信息"<<endl;
@@ -504,7 +529,7 @@ void seeStudentById(System system){
         cout<<*student<<endl;
 
 }
-void seeStudentByName(System system){
+void queryStudentByName(System system){//查找学生
     Student *student =  system.selectStudentByName(getName());
     if(student==nullptr){
         cout<<"未找到信息"<<endl;
@@ -512,7 +537,7 @@ void seeStudentByName(System system){
         cout<<*student<<endl;
 
 }
-void seeCourseById(System system){
+void queryCourseById(System system){//查找课程
     Course *course =  system.selectCourseById(getId());
     if(course==nullptr){
         cout<<"未找到信息"<<endl;
@@ -520,7 +545,7 @@ void seeCourseById(System system){
         cout<<*course<<endl;
 
 }
-void seeCourseByName(System system){
+void queryCourseByName(System system){//查找课程
     Course *course =  system.selectCourseByName(getName());
     if(course==nullptr){
         cout<<"未找到信息"<<endl;
@@ -546,14 +571,15 @@ int main() {
             case 9:system.deleteCourse(system.selectCourseById(getId()));break;
             case 10:system.modifyStudent(getId());break;
             case 11:system.modifyCourse(getId());break;
-            case 12:seeStudentById(system);break;
-            case 13:seeStudentByName(system);break;
-            case 14:seeCourseById(system);break;
-            case 15:seeCourseByName(system);break;
+            case 12:queryStudentById(system);break;
+            case 13:queryStudentByName(system);break;
+            case 14:queryCourseById(system);break;
+            case 15:queryCourseByName(system);break;
+            case 16:system.unChooseCourse();break;
             case 0:return 0;
         }
     }
 
 
-    return 0;
+
 }
